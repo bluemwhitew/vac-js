@@ -1,0 +1,32 @@
+{
+    "name": "VAC JS",
+    "description": "A lightweight Steam Community bookmarklet.",
+    "version": "0.0.1",
+    "author": "Matt Walters <bluemwhitew@hotmail.co.uk>",
+    "bugs": {
+        "url": "https://www.github.com/bluemwhitew/vac-js/issues"
+    },
+    "devDependencies": {
+        "grunt": "^1.0.1",
+        "grunt-contrib-uglify": "^3.2.1",
+        "grunt-eslint": "^20.1.0",
+        "grunt-jscs": "^3.0.1"
+    },
+    "engines": {
+        "node": ">=4"
+    },
+    "homepage": "https://www.github.com/bluemwhitew/vac-js",
+    "keywords": [
+        "aimbot",
+        "bookmarklet",
+        "cheater",
+        "reported",
+        "vac",
+        "valve",
+        "wallhack"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:bluemwhitew/vac-js.git"
+    }
+}
