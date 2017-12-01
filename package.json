@@ -25,6 +25,7 @@
         "valve",
         "wallhack"
     ],
+    "license": "MIT",
     "repository": {
         "type": "git",
         "url": "git@github.com:bluemwhitew/vac-js.git"
