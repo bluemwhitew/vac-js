@@ -1,7 +1,3 @@
-/* eslint no-debugger: 0 */
-
-'use strict';
-
 (function () {
     var index = {},
         querySelector = '#memberList .friendBlock',

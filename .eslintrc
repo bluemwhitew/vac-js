@@ -71,7 +71,6 @@
         "radix": 2,
         "semi": [2, "always"],
         "semi-spacing": 2,
-        "strict": 2,
         "use-isnan": 2,
         "valid-typeof": 2,
         "vars-on-top": 2
