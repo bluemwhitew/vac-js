@@ -77,6 +77,7 @@
 
         steamProfileElements.forEach(function (steamProfileElement) {
             var div = document.createElement('div'),
+                friendSmallText = steamProfileElement.querySelector('.friendSmallText'),
                 text = '';
 
             if (player.NumberOfGameBans || player.VACBanned) {
@@ -96,8 +97,8 @@
                 steamProfileElement.style.opacity = '0.1337';
             }
 
-            steamProfileElement.querySelector('.friendSmallText').innerHTML = '';
-            steamProfileElement.querySelector('.friendSmallText').appendChild(div);
+            friendSmallText.innerHTML = '';
+            friendSmallText.appendChild(div);
         });
     }
 
