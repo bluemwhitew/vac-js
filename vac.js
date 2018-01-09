@@ -18,10 +18,6 @@
             result = [],
             sum;
 
-        if (parseInt(a, 10) === 0 || parseInt(b, 10) === 0) {
-            return '0';
-        }
-
         a = a.split('').reverse();
         b = b.split('').reverse();
 
