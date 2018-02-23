@@ -1,5 +1,6 @@
 (function () {
-    var index = {},
+    var apikey = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        index = {},
         querySelector = '#memberList .friendBlock',
         segment,
         steamCommunityIds,
@@ -109,11 +110,10 @@
      * @see {@link https://developer.valvesoftware.com/wiki/Steam_Web_API|Steam Web API}
      */
     function getPlayerBans(players) {
-        var key = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-            method = 'GET',
+        var method = 'GET',
             responseText,
             steamIds = players.join(','),
-            url = 'https://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=' + key + '&steamids=' + steamIds,
+            url = 'https://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=' + apikey + '&steamids=' + steamIds,
             xhr = new XMLHttpRequest();
 
         xhr.open(method, url, true);
