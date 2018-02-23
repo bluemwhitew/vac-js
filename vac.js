@@ -1,5 +1,6 @@
 (function () {
-    var index = {},
+    var apikey = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        index = {},
         querySelector = '#memberList .friendBlock',
         segment,
         steamCommunityIds,
@@ -17,10 +18,6 @@
             next,
             result = [],
             sum;
-
-        if (parseInt(a, 10) === 0 || parseInt(b, 10) === 0) {
-            return '0';
-        }
 
         a = a.split('').reverse();
         b = b.split('').reverse();
@@ -81,6 +78,7 @@
 
         steamProfileElements.forEach(function (steamProfileElement) {
             var div = document.createElement('div'),
+                friendSmallText = steamProfileElement.querySelector('.friendSmallText'),
                 text = '';
 
             if (player.NumberOfGameBans || player.VACBanned) {
@@ -100,8 +98,8 @@
                 steamProfileElement.style.opacity = '0.1337';
             }
 
-            steamProfileElement.querySelector('.friendSmallText').innerHTML = '';
-            steamProfileElement.querySelector('.friendSmallText').appendChild(div);
+            friendSmallText.innerHTML = '';
+            friendSmallText.appendChild(div);
         });
     }
 
@@ -112,11 +110,10 @@
      * @see {@link https://developer.valvesoftware.com/wiki/Steam_Web_API|Steam Web API}
      */
     function getPlayerBans(players) {
-        var key = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-            method = 'GET',
+        var method = 'GET',
             responseText,
             steamIds = players.join(','),
-            url = 'https://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=' + key + '&steamids=' + steamIds,
+            url = 'https://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=' + apikey + '&steamids=' + steamIds,
             xhr = new XMLHttpRequest();
 
         xhr.open(method, url, true);
