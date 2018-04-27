@@ -7,7 +7,7 @@ A lightweight Steam Community ~~bookmarklet~~ script.
 ## Getting Started
 1. [Apply for a Steam Web API Key](https://steamcommunity.com/dev/apikey)
 2. Copy the contents of [vac.min.js](https://raw.githubusercontent.com/bluemwhitew/vac-js/master/vac.min.js), replacing `XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX` with your Steam Web API Key.
-3. View a Friends page on the Steam Community. Like [PalmDesert](http://steamcommunity.com/id/palmdesert/friends), for example.
+3. View a Friends page on the Steam Community. Like [PalmDesert](https://steamcommunity.com/id/palmdesert/friends), for example.
 4. With the Developer Console, paste and execute the script.
 
 ## Resources
