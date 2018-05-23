@@ -1,5 +1,5 @@
 # VAC JS
-A lightweight Steam Community ~~bookmarklet~~ script.
+A lightweight Steam Community script.
 
 ![GitHub Release](https://img.shields.io/github/release/bluemwhitew/vac-js.svg?style=for-the-badge)
 ![GitHub File Size](https://img.shields.io/github/size/bluemwhitew/vac-js/vac.min.js.svg?style=for-the-badge)
