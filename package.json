@@ -1,7 +1,7 @@
 {
     "name": "VAC JS",
     "description": "A lightweight Steam Community script.",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "author": "Matt Walters <bluemwhitew@hotmail.co.uk>",
     "bugs": {
         "url": "https://www.github.com/bluemwhitew/vac-js/issues"
