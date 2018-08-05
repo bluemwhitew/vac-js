@@ -1,7 +1,7 @@
 (function () {
     var apikey = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         index = {},
-        querySelector = '#memberList .friendBlock',
+        querySelector = '.friend_block_v2',
         segment,
         steamCommunityIds,
         steamProfiles = [].slice.call(document.querySelectorAll(querySelector));
@@ -78,7 +78,7 @@
 
         steamProfileElements.forEach(function (steamProfileElement) {
             var div = document.createElement('div'),
-                friendSmallText = steamProfileElement.querySelector('.friendSmallText'),
+                friendSmallText = steamProfileElement.querySelector('.friend_small_text'),
                 text = '';
 
             if (player.NumberOfGameBans || player.VACBanned) {
