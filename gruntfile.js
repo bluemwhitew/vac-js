@@ -32,6 +32,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-jscs');
 
     grunt.registerTask('build', ['uglify']);
-    grunt.registerTask('codequality', ['eslint', 'jscs']);
+    grunt.registerTask('lint', ['eslint', 'jscs']);
     grunt.registerTask('default', ['build']);
 };
