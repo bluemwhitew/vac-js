@@ -33,5 +33,5 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', ['uglify']);
     grunt.registerTask('lint', ['eslint', 'jscs']);
-    grunt.registerTask('default', ['build']);
+    grunt.registerTask('default', ['lint', 'build']);
 };
