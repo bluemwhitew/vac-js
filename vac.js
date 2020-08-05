@@ -1,5 +1,5 @@
 (function () {
-    var apikey = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+    let apikey = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         index = {},
         querySelector = '.friend_block_v2',
         segment,
@@ -14,7 +14,7 @@
      * @returns {String}
      */
     function add(a, b) {
-        var i,
+        let i,
             next,
             result = [],
             sum;
@@ -46,14 +46,14 @@
      * @param {Object} steamProfile
      */
     function getCommunityId(steamProfile) {
-        var base = '76561197960265728', // Buttery Biscuit Base
+        let base = '76561197960265728', // Buttery Biscuit Base
             steamId3 = steamProfile.dataset.miniprofile;
 
         return add(base, steamId3);
     }
 
     steamProfiles.forEach(function (steamProfile) {
-        var steamId64 = getCommunityId(steamProfile);
+        let steamId64 = getCommunityId(steamProfile);
 
         if (!index[steamId64]) {
             index[steamId64] = [];
@@ -74,10 +74,10 @@
      * @see {@link https://developer.valvesoftware.com/wiki/Steam_Web_API#Result_layout_6|Steam Web API (GetPlayerBans)}
      */
     function applyVacation(player) {
-        var steamProfileElements = index[player.SteamId];
+        let steamProfileElements = index[player.SteamId];
 
         steamProfileElements.forEach(function (steamProfileElement) {
-            var div = document.createElement('div'),
+            let div = document.createElement('div'),
                 friendSmallText = steamProfileElement.querySelector('.friend_small_text'),
                 text = '';
 
@@ -110,7 +110,7 @@
      * @see {@link https://developer.valvesoftware.com/wiki/Steam_Web_API|Steam Web API}
      */
     function getPlayerBans(players) {
-        var method = 'GET',
+        let method = 'GET',
             responseText,
             steamIds = players.join(','),
             url = 'https://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=' + apikey + '&steamids=' + steamIds,
