@@ -1,5 +1,5 @@
 (function () {
-    let apikey = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+    let apiKey = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         index = {},
         querySelector = '.friend_block_v2',
         segment,
@@ -113,7 +113,7 @@
         let method = 'GET',
             responseText,
             steamIds = players.join(','),
-            url = 'https://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=' + apikey + '&steamids=' + steamIds,
+            url = 'https://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=' + apiKey + '&steamids=' + steamIds,
             xhr = new XMLHttpRequest();
 
         xhr.open(method, url, true);
