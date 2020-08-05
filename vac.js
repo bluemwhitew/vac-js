@@ -14,16 +14,18 @@
      * @returns {String}
      */
     function add(a, b) {
-        let i,
+        let aReversed,
+            bReversed,
+            i,
             next,
             result = [],
             sum;
 
-        a = a.split('').reverse();
-        b = b.split('').reverse();
+        aReversed = a.split('').reverse();
+        bReversed = b.split('').reverse();
 
-        for (i = 0; a[i] >= 0 || b[i] >= 0; i++) {
-            sum = (parseInt(a[i], 10) || 0) + (parseInt(b[i], 10) || 0);
+        for (i = 0; aReversed[i] >= 0 || bReversed[i] >= 0; i++) {
+            sum = (parseInt(aReversed[i], 10) || 0) + (parseInt(bReversed[i], 10) || 0);
 
             if (!result[i]) {
                 result[i] = 0;
@@ -44,6 +46,7 @@
      * Calculate Steam Community ID from `[data-miniprofile]` (SteamID3)
      *
      * @param {Object} steamProfile
+     * @returns {String}
      */
     function getCommunityId(steamProfile) {
         let base = '76561197960265728', // Buttery Biscuit Base
