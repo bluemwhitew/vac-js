@@ -15,5 +15,8 @@ A lightweight Steam Community script.
 - [Steam Web API](https://developer.valvesoftware.com/wiki/Steam_Web_API)
 - [Your Steam Friends](https://steamcommunity.com/my/friends)
 
+## Support
+Found this useful? [Buy me a coffee](https://www.ko-fi.com/bluemwhitew).
+
 ## License
 VAC JS is available under the [MIT License](LICENSE.txt).
