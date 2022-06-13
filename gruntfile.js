@@ -8,12 +8,6 @@ module.exports = function (grunt) {
             },
             target: 'vac.js'
         },
-        jscs: {
-            src: 'vac.js',
-            options: {
-                config: '.jscsrc'
-            }
-        },
         uglify: {
             options: {
                 compress: true,
@@ -29,9 +23,8 @@ module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-eslint');
-    grunt.loadNpmTasks('grunt-jscs');
 
     grunt.registerTask('build', ['uglify']);
-    grunt.registerTask('lint', ['eslint', 'jscs']);
+    grunt.registerTask('lint', ['eslint']);
     grunt.registerTask('default', ['lint', 'build']);
 };
