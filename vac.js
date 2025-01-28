@@ -1,10 +1,8 @@
-(function () {
-    let apiKey = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        index = {},
-        querySelector = '.friend_block_v2',
-        segment,
-        steamCommunityIds,
-        steamProfiles = [].slice.call(document.querySelectorAll(querySelector));
+(async function () {
+    const apiKey = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+    const index = {};
+    const querySelector = '.friend_block_v2';
+    const steamProfiles = Array.from(document.querySelectorAll(querySelector));
 
     /**
      * Apply Calculations with Strings
@@ -13,50 +11,41 @@
      * @param {String} b
      * @returns {String}
      */
-    function add(a, b) {
-        let aReversed,
-            bReversed,
-            i,
-            next,
-            result = [],
-            sum;
+    const add = (a, b) => {
+        const aReversed = a.split('').reverse();
+        const bReversed = b.split('').reverse();
+        const result = [];
+        let carry = 0;
 
-        aReversed = a.split('').reverse();
-        bReversed = b.split('').reverse();
+        for (let i = 0; i < Math.max(aReversed.length, bReversed.length); i++) {
+            const sum = (parseInt(aReversed[i] || '0', 10) + parseInt(bReversed[i] || '0', 10) + carry);
 
-        for (i = 0; aReversed[i] >= 0 || bReversed[i] >= 0; i++) {
-            sum = (parseInt(aReversed[i], 10) || 0) + (parseInt(bReversed[i], 10) || 0);
+            result.push(sum % 10);
+            carry = Math.floor(sum / 10);
+        }
 
-            if (!result[i]) {
-                result[i] = 0;
-            }
-
-            next = (result[i] + sum) / 10 | 0;
-            result[i] = (result[i] + sum) % 10;
-
-            if (next) {
-                result[i + 1] = next;
-            }
+        if (carry > 0) {
+            result.push(carry);
         }
 
         return result.reverse().join('');
-    }
+    };
 
     /**
      * Calculate Steam Community ID from `[data-miniprofile]` (SteamID3)
      *
-     * @param {Object} steamProfile
+     * @param {HTMLElement} steamProfile
      * @returns {String}
      */
-    function getCommunityId(steamProfile) {
-        let base = '76561197960265728', // Buttery Biscuit Base
-            steamId3 = steamProfile.dataset.miniprofile;
+    const getCommunityId = (steamProfile) => {
+        const base = '76561197960265728'; // Buttery Biscuit Base
+        const steamId3 = steamProfile.dataset.miniprofile;
 
         return add(base, steamId3);
-    }
+    };
 
-    steamProfiles.forEach(function (steamProfile) {
-        let steamId64 = getCommunityId(steamProfile);
+    steamProfiles.forEach((steamProfile) => {
+        const steamId64 = getCommunityId(steamProfile);
 
         if (!index[steamId64]) {
             index[steamId64] = [];
@@ -74,69 +63,66 @@
      * @property {Number} player.NumberOfVACBans
      * @property {Number} player.DaysSinceLastBan
      * @property {Number} player.NumberOfGameBans
-     * @see {@link https://developer.valvesoftware.com/wiki/Steam_Web_API#Result_layout_6|Steam Web API (GetPlayerBans)}
+     * @see https://developer.valvesoftware.com/wiki/Steam_Web_API
      */
-    function applyVacation(player) {
-        let steamProfileElements = index[player.SteamId];
+    const applyVacation = (player) => {
+        const steamProfileElements = index[player.SteamId];
 
-        steamProfileElements.forEach(function (steamProfileElement) {
-            let div = document.createElement('div'),
-                friendSmallText = steamProfileElement.querySelector('.friend_small_text'),
-                text = '';
+        steamProfileElements.forEach((steamProfileElement) => {
+            const div = document.createElement('div');
+            const friendSmallText = steamProfileElement.querySelector('.friend_small_text');
+            let text = '';
 
             if (player.NumberOfGameBans || player.VACBanned) {
                 if (player.NumberOfGameBans) {
-                    text += player.NumberOfGameBans + ' OW';
+                    text += `${player.NumberOfGameBans} Game`;
                 }
 
                 if (player.VACBanned) {
-                    text += (text === '' ? '' : ', ') + player.NumberOfVACBans + ' VAC';
+                    text += `${text ? ', ' : ''}${player.NumberOfVACBans} VAC`;
                 }
 
-                text += ' ' + player.DaysSinceLastBan + ' days ago';
+                text += ` ${player.DaysSinceLastBan} days ago`;
 
                 div.style.color = '#a94847';
-                div.innerHTML = text;
+                div.textContent = text;
             } else {
                 steamProfileElement.style.opacity = '0.1337';
             }
 
-            friendSmallText.innerHTML = '';
+            friendSmallText.textContent = '';
             friendSmallText.appendChild(div);
         });
-    }
+    };
 
     /**
      * Create HTTP Request to Steam API
      *
      * @param {Object} players
-     * @see {@link https://developer.valvesoftware.com/wiki/Steam_Web_API|Steam Web API}
+     * @see https://developer.valvesoftware.com/wiki/Steam_Web_API
      */
-    function getPlayerBans(players) {
-        let method = 'GET',
-            responseText,
-            steamIds = players.join(','),
-            url = 'https://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=' + apiKey + '&steamids=' + steamIds,
-            xhr = new XMLHttpRequest();
+    const getPlayerBans = async (players) => {
+        const steamIds = players.join(',');
+        const url = `https://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=${apiKey}&steamids=${steamIds}`;
 
-        xhr.open(method, url, true);
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
 
-        /** @property {Object} players */
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                responseText = JSON.parse(xhr.responseText);
-                responseText.players.forEach(applyVacation);
+            if (data.players) {
+                data.players.forEach(applyVacation);
             }
-        };
+        } catch (error) {
+            // Didn't Ask
+        }
+    };
 
-        xhr.send();
-    }
-
-    steamCommunityIds = Object.keys(index);
+    const steamCommunityIds = Object.keys(index);
 
     // Segment IDs for HTTP Requests (Steam Web API Allows 100 Per Request)
     while (steamCommunityIds.length > 0) {
-        segment = steamCommunityIds.splice(0, 100);
-        getPlayerBans(segment);
+        const segment = steamCommunityIds.splice(0, 100);
+
+        await getPlayerBans(segment);
     }
 })();
