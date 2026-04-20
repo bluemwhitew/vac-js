@@ -7,9 +7,9 @@
         "url": "https://www.github.com/bluemwhitew/vac-js/issues"
     },
     "devDependencies": {
-        "grunt": "^1.6.1",
+        "grunt": "^1.6.2",
         "grunt-contrib-uglify": "^5.2.2",
-        "grunt-eslint": "^25.0.0"
+        "grunt-eslint": "^26.0.0"
     },
     "engines": {
         "node": ">=14.21",
