@@ -7,8 +7,8 @@
         "url": "https://www.github.com/bluemwhitew/vac-js/issues"
     },
     "devDependencies": {
-        "grunt": "^1.6.2",
-        "grunt-contrib-uglify": "^5.2.2"
+        "esbuild": "^0.28.2",
+        "typescript": "^7.0.2"
     },
     "engines": {
         "node": ">=24.20",
@@ -33,6 +33,8 @@
         "url": "git@github.com:bluemwhitew/vac-js.git"
     },
     "scripts": {
-        "build": "grunt build"
+        "build": "esbuild src/index.ts --bundle --outfile=dist/vac.js",
+        "build:min": "esbuild src/index.ts --bundle --minify --outfile=dist/vac.min.js",
+        "typecheck": "tsc --noEmit"
     }
 }
