@@ -1,17 +1,29 @@
+interface PlayerBan {
+    SteamId: string;
+    CommunityBanned: boolean;
+    VACBanned: boolean;
+    NumberOfVACBans: number;
+    DaysSinceLastBan: number;
+    NumberOfGameBans: number;
+    EconomyBan: string;
+}
+
+interface GetPlayerBansResponse {
+    players: PlayerBan[];
+}
+
 (async function () {
     const apiKey = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-    const index = {};
+    const index: Record<string, HTMLElement[]> = {};
     const querySelector = '.friend_block_v2';
-    const steamProfiles = Array.from(document.querySelectorAll(querySelector));
+    const steamProfiles = Array.from(
+        document.querySelectorAll<HTMLElement>(querySelector)
+    );
 
     /**
      * Apply Calculations with Strings
-     *
-     * @param {String} a
-     * @param {String} b
-     * @returns {String}
      */
-    const add = (a, b) => {
+    const add = (a: string, b: string): string => {
         const aReversed = a.split('').reverse();
         const bReversed = b.split('').reverse();
         const result = [];
@@ -33,13 +45,14 @@
 
     /**
      * Calculate Steam Community ID from `[data-miniprofile]` (SteamID3)
-     *
-     * @param {HTMLElement} steamProfile
-     * @returns {String}
      */
-    const getCommunityId = (steamProfile) => {
+    const getCommunityId = (steamProfile: HTMLElement): string => {
         const base = '76561197960265728'; // Buttery Biscuit Base
         const steamId3 = steamProfile.dataset.miniprofile;
+
+        if (!steamId3) {
+            throw new Error('Missing [data-miniprofile]');
+        }
 
         return add(base, steamId3);
     };
@@ -56,21 +69,13 @@
 
     /**
      * Apply Bans to Players ("Enjoy VAC!")
-     *
-     * @param {Object} player
-     * @property {String} player.SteamId
-     * @property {Boolean} player.VACBanned
-     * @property {Number} player.NumberOfVACBans
-     * @property {Number} player.DaysSinceLastBan
-     * @property {Number} player.NumberOfGameBans
-     * @see https://developer.valvesoftware.com/wiki/Steam_Web_API
      */
-    const applyVacation = (player) => {
+    const applyVacation = (player: PlayerBan) => {
         const steamProfileElements = index[player.SteamId];
 
         steamProfileElements.forEach((steamProfileElement) => {
             const div = document.createElement('div');
-            const friendSmallText = steamProfileElement.querySelector('.friend_small_text');
+            const friendSmallText = steamProfileElement.querySelector<HTMLElement>('.friend_small_text');
             let text = '';
 
             if (player.NumberOfGameBans || player.VACBanned) {
@@ -90,6 +95,10 @@
                 steamProfileElement.style.opacity = '0.1337';
             }
 
+            if (!friendSmallText) {
+                return;
+            }
+
             friendSmallText.textContent = '';
             friendSmallText.appendChild(div);
         });
@@ -98,20 +107,19 @@
     /**
      * Create HTTP Request to Steam API
      *
-     * @param {Object} players
      * @see https://developer.valvesoftware.com/wiki/Steam_Web_API
      */
-    const getPlayerBans = async (players) => {
+    const getPlayerBans = async (
+        players: string[]
+    ): Promise<void> => {
         const steamIds = players.join(',');
         const url = `https://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=${apiKey}&steamids=${steamIds}`;
 
         try {
             const response = await fetch(url);
-            const data = await response.json();
+            const data: GetPlayerBansResponse = await response.json();
 
-            if (data.players) {
-                data.players.forEach(applyVacation);
-            }
+            data.players.forEach(applyVacation);
         } catch (error) {
             // Didn't Ask
         }

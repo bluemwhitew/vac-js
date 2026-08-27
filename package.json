@@ -1,19 +1,18 @@
 {
     "name": "vac-js",
     "description": "A lightweight Steam Community script.",
-    "version": "3.0.1",
+    "version": "4.0.0",
     "author": "Matt Walters <bluemwhitew@hotmail.co.uk>",
     "bugs": {
         "url": "https://www.github.com/bluemwhitew/vac-js/issues"
     },
     "devDependencies": {
-        "grunt": "^1.6.2",
-        "grunt-contrib-uglify": "^5.2.2",
-        "grunt-eslint": "^26.0.0"
+        "esbuild": "^0.28.2",
+        "typescript": "^7.0.2"
     },
     "engines": {
-        "node": ">=14.21",
-        "npm": ">=6.14"
+        "node": ">=24.20",
+        "npm": ">=11.19"
     },
     "homepage": "https://www.github.com/bluemwhitew/vac-js",
     "keywords": [
@@ -34,7 +33,8 @@
         "url": "git@github.com:bluemwhitew/vac-js.git"
     },
     "scripts": {
-        "build": "grunt build",
-        "lint": "grunt lint"
+        "build": "esbuild src/index.ts --bundle --outfile=dist/vac.js",
+        "build:min": "esbuild src/index.ts --bundle --minify --outfile=dist/vac.min.js",
+        "typecheck": "tsc --noEmit"
     }
 }
