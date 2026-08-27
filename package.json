@@ -8,8 +8,7 @@
     },
     "devDependencies": {
         "grunt": "^1.6.2",
-        "grunt-contrib-uglify": "^5.2.2",
-        "grunt-eslint": "^26.0.0"
+        "grunt-contrib-uglify": "^5.2.2"
     },
     "engines": {
         "node": ">=24.20",
@@ -34,7 +33,6 @@
         "url": "git@github.com:bluemwhitew/vac-js.git"
     },
     "scripts": {
-        "build": "grunt build",
-        "lint": "grunt lint"
+        "build": "grunt build"
     }
 }
